@@ -1,0 +1,61 @@
+# Dependabot configuration for npm packages
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
+    # Limit to 10 open pull requests for npm
+    open-pull-requests-limit: 10
+    # Specify target branch for pull requests
+    target-branch: "main"
+    # Group minor and patch updates together
+    groups:
+      aws-cdk-v1:
+        patterns:
+          - "@aws-cdk/*"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        patterns:
+          - "@types/*"
+          - "jest"
+          - "ts-*"
+          - "typescript"
+        update-types:
+          - "minor"
+          - "patch"
+      other-dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@aws-cdk/*"
+          - "@types/*"
+          - "jest"
+          - "ts-*"
+          - "typescript"
+        update-types:
+          - "minor"
+          - "patch"
+    # Allow up to 5 major version updates
+    allow:
+      - dependency-type: "direct"
+        update-type: "major"
+        maximum-update-rate: 5
+    # Add labels to pull requests
+    labels:
+      - "dependencies"
+      - "npm"
+    # Commit message format
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+    # Rebase strategy
+    rebase-strategy: "auto"
